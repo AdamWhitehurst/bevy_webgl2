@@ -170,22 +170,22 @@ impl RenderResourceContext for WebGL2RenderResourceContext {
         return (size + BIND_BUFFER_ALIGNMENT - 1) & !(BIND_BUFFER_ALIGNMENT - 1);
     }
 
-    fn create_swap_chain(&self, window: &Window) {
+    fn configure_surface(&self, window: &Window) {
         let gl = &self.device.get_context();
         let mut window_size = self.resources.window_size.write();
         *window_size = (window.physical_width(), window.physical_height());
         gl_call!(gl.viewport(0, 0, window_size.0 as i32, window_size.1 as i32,));
     }
 
-    fn next_swap_chain_texture(&self, window: &Window) -> TextureId {
+    fn next_surface_frame(&self, window: &Window) -> TextureId {
         let mut window_size = self.resources.window_size.write();
         *window_size = (window.physical_width(), window.physical_height());
         self.swapchain_texture
     }
 
-    fn drop_swap_chain_texture(&self, _render_resource: TextureId) {}
+    fn drop_surface_frame(&self, _render_resource: TextureId) {}
 
-    fn drop_all_swap_chain_textures(&self) {}
+    fn drop_all_surface_frames(&self) {}
 
     fn create_sampler(&self, _sampler_descriptor: &SamplerDescriptor) -> SamplerId {
         SamplerId::new()

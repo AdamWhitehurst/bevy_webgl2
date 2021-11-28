@@ -120,7 +120,7 @@ impl WebGL2Renderer {
         if let Some(render_resource_context) =
             world.get_resource::<Box<dyn RenderResourceContext>>()
         {
-            render_resource_context.drop_all_swap_chain_textures();
+            render_resource_context.drop_all_surface_frames();
             render_resource_context.clear_bind_groups();
         }
     }
